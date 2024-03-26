@@ -25,8 +25,22 @@ export interface Env {
 	// MY_QUEUE: Queue;
 }
 
+declare module '@cloudflare/workers-types/base' {
+	interface Env {
+		MY_VAR: number;
+	}
+}
+
+// Note: The Env above applies both with the ambient types and the importable ones
+// import type { ExportedHandlerFetchHandler } from '@cloudflare/workers-types/experimental';
+
+const fetch: ExportedHandlerFetchHandler = async (request, env, ctx) => {
+	const myVar = env.MY_VAR;
+	    // ^?
+		// (should be `const myVar: number`)
+	return new Response('Hello World!');
+};
+
 export default {
-	async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
-		return new Response('Hello World!');
-	},
+	fetch,
 };
