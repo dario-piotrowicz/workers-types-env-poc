@@ -50,7 +50,11 @@ build/Release
 
 # Dependency directories
 
-node_modules/
+node_modules/*
+!node_modules/@cloudflare
+node_modules/@cloudflare/*
+!node_modules/@cloudflare/workers-types
+
 jspm_packages/
 
 # Snowpack dependency directory (https://snowpack.dev/)
